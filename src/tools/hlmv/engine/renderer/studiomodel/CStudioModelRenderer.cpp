@@ -241,9 +241,12 @@ void CStudioModelRenderer::DrawSingleAttachment( const int iAttachment )
 	mstudioattachment_t *pattachments = m_pStudioHdr->GetAttachments();
 	glm::vec3 v[ 4 ];
 	VectorTransform( pattachments[ iAttachment ].org, m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 0 ] );
-	VectorTransform( pattachments[ iAttachment ].vectors[ 0 ], m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 1 ] );
-	VectorTransform( pattachments[ iAttachment ].vectors[ 1 ], m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 2 ] );
-	VectorTransform( pattachments[ iAttachment ].vectors[ 2 ], m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 3 ] );
+
+//Tony; deal with rotation and alignment here.
+//	VectorTransform( pattachments[ iAttachment ].vectors[ 0 ], m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 1 ] );
+//	VectorTransform( pattachments[ iAttachment ].vectors[ 1 ], m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 2 ] );
+//	VectorTransform( pattachments[ iAttachment ].vectors[ 2 ], m_bonetransform[ pattachments[ iAttachment ].bone ], v[ 3 ] );
+
 	glBegin( GL_LINES );
 	glColor3f( 0, 1, 1 );
 	glVertex3fv( glm::value_ptr( v[ 0 ] ) );
@@ -384,9 +387,12 @@ void CStudioModelRenderer::DrawAttachments()
 		mstudioattachment_t *pattachments = m_pStudioHdr->GetAttachments();
 		glm::vec3 v[ 4 ];
 		VectorTransform( pattachments[ i ].org, m_bonetransform[ pattachments[ i ].bone ], v[ 0 ] );
-		VectorTransform( pattachments[ i ].vectors[ 0 ], m_bonetransform[ pattachments[ i ].bone ], v[ 1 ] );
-		VectorTransform( pattachments[ i ].vectors[ 1 ], m_bonetransform[ pattachments[ i ].bone ], v[ 2 ] );
-		VectorTransform( pattachments[ i ].vectors[ 2 ], m_bonetransform[ pattachments[ i ].bone ], v[ 3 ] );
+
+//Tony; deal with rotation and alignment here.
+//		VectorTransform( pattachments[ i ].vectors[ 0 ], m_bonetransform[ pattachments[ i ].bone ], v[ 1 ] );
+//		VectorTransform( pattachments[ i ].vectors[ 1 ], m_bonetransform[ pattachments[ i ].bone ], v[ 2 ] );
+//		VectorTransform( pattachments[ i ].vectors[ 2 ], m_bonetransform[ pattachments[ i ].bone ], v[ 3 ] );
+
 		glBegin( GL_LINES );
 		glColor3f( 1, 0, 0 );
 		glVertex3fv( glm::value_ptr( v[ 0 ] ) );

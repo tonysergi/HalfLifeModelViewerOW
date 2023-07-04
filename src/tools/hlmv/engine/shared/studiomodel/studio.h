@@ -29,9 +29,15 @@ Studio models are position independent, so the cache manager can move them.
 
 enum
 {
-	MAXSTUDIOTRIANGLES				= 20000,	// TODO: tune this
-	MAXSTUDIOVERTS					= 2048,	// TODO: tune this
-	MAXSTUDIOSEQUENCES				= 2048,	// total animation sequences -- KSH incremented
+	//Omega Wing; This doesn't break loading in vanilla engine
+	//However, if the server.dll / client.dll are NOT implementing the studiomodel interfaces
+	//and the engine tries to do setupbones on server, or to render on the client
+	//if the model has more than vanilla values, it WILL CRASH.
+	//because the defines are ONLY USED for allocating the arrays!!
+	//note: MAXSTUDIOBONES **CANNOT** be changed, becuase that value is explicitly shared.
+	MAXSTUDIOTRIANGLES				= 65535,	//VANILLA: 20000
+	MAXSTUDIOVERTS					= 16384,	//VANILLA: 2048
+	MAXSTUDIOSEQUENCES				= 2048,		// total animation sequences -- KSH incremented
 	MAXSTUDIOSKINS					= 100,		// total textures
 	MAXSTUDIOSRCBONES				= 512,		// bones allowed at source movement
 	MAXSTUDIOBONES					= 128,		// total bones actually used
@@ -54,8 +60,8 @@ enum
 	*	Maximum number of bone controllers per bone.
 	*/
 	STUDIO_MAX_PER_BONE_CONTROLLERS	= 6,
-
-	STUDIO_ATTACH_NUM_VECTORS		= 3
+	//Tony; kill this.
+	//STUDIO_ATTACH_NUM_VECTORS		= 3
 };
 
 /**
@@ -75,6 +81,9 @@ enum
 	EF_NOSHADELIGHT		=	256,		//! No shade lighting
 	EF_HITBOXCOLLISIONS =	512,		//! Use hitbox collisions
 	EF_FORCESKYLIGHT	=	1024,		//! Forces the model to be lit by skybox lighting
+	EF_VIEWMODEL		=	2048,		//! model is explicitly marked as a viewmodel (for HHD/FLF/OSC)
+
+	MF_CUSTOMDATA		= 1073741824,	//! if this flag is not set, we cannot load the extra data
 };
 
 // header for demand loaded sequence group data
@@ -227,7 +236,11 @@ struct mstudioattachment_t
 	/**
 	*	Directional vectors? Unused in GoldSource.
 	*/
-	glm::vec3 vectors[ STUDIO_ATTACH_NUM_VECTORS ];
+	//original was 9 floats.
+	//glm::vec3 vectors[ STUDIO_ATTACH_NUM_VECTORS ];
+	glm::vec3 rotation;
+	float alignment; //0 = vanilla/WorldAligned, 1 = relative to bone
+	float unused[5];
 };
 
 struct mstudioanim_t
@@ -433,6 +446,13 @@ struct studiohdr_t
 
 	const	byte* GetTransition( const int iIndex ) const { return GetTransitions() + iIndex; }
 	byte* GetTransition( const int iIndex ) { return GetTransitions() + iIndex; }
+	
+	//-----------------------------------------------------------------------------------------
+	//BEGIN OMEGAWING / OWSTUDIOMDL.EXE SUPPORTED; ADDITIONAL DATA
+	//-----------------------------------------------------------------------------------------
+	int					keyvalueindex;
+	int					keyvaluesize;	
+	
 };
 
 // lighting options

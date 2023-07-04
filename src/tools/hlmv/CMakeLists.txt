@@ -1,9 +1,14 @@
-set(TARGET_NAME HLMV)
+# tony; changed name to OWMV to not conflict with other versions of hlmv.
+set(TARGET_NAME OWMV)
+
+include(M:/dev/vcpkg_global/scripts/buildsystems/vcpkg.cmake)
 
 find_package(OpenGL REQUIRED)
 
 # Disable module based lookup (OpenAL Soft uses CONFIG mode and MODULE mode only works with the Creative Labs version)
-find_package(OpenAL REQUIRED NO_MODULE)
+#find_package(OpenAL REQUIRED NO_MODULE)
+find_package(OpenAL REQUIRED)
+
 
 if(WIN32)
 	find_library(GLEW glew32 PATHS ${EXTERNAL_DIR}/GLEW/lib)
@@ -12,6 +17,8 @@ else()
 endif()
 
 find_package(wxWidgets REQUIRED COMPONENTS gl adv propgrid core base)
+#find_package(wxWidgets REQUIRED)
+
 include(${wxWidgets_USE_FILE})
 
 add_library(Ogg STATIC IMPORTED)

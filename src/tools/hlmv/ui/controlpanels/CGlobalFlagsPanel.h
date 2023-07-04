@@ -28,6 +28,7 @@ public:
 			NOSHADELIGHT,
 			HITBOXCOLLISIONS,
 			FORCESKYLIGHT,
+			VIEWMODEL, //FLF/OmegaWing
 
 			COUNT,
 			LAST = COUNT - 1	//Must be last.

@@ -32,6 +32,7 @@ CGlobalFlagsPanel::CGlobalFlagsPanel( wxWindow* pParent, CModelViewerApp* const 
 	m_pCheckBoxes[ CheckBox::NOSHADELIGHT ] = new wxCheckBox( pElemParent, wxID_GLOBALFLAGS_CHECKBOX, "No Shade Light" );
 	m_pCheckBoxes[ CheckBox::HITBOXCOLLISIONS ] = new wxCheckBox( pElemParent, wxID_GLOBALFLAGS_CHECKBOX, "Hitbox Collision" );
 	m_pCheckBoxes[ CheckBox::FORCESKYLIGHT ] = new wxCheckBox( pElemParent, wxID_GLOBALFLAGS_CHECKBOX, "Force Skylight" );
+	m_pCheckBoxes[ CheckBox::VIEWMODEL ] = new wxCheckBox( pElemParent, wxID_GLOBALFLAGS_CHECKBOX, "View Model" );
 
 	for( size_t uiIndex = CheckBox::FIRST; uiIndex < CheckBox::COUNT; ++uiIndex )
 	{
